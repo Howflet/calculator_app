@@ -32,7 +32,7 @@ An explicit `CalcPhase` enum replaces a tangle of booleans.
 ```bash
 flutter pub get
 flutter run                 # run on an emulator or device
-flutter test                # run the widget test suite (15 tests)
+flutter test                # run the widget test suite (19 tests)
 flutter build apk --release # produce the release APK
 ```
 

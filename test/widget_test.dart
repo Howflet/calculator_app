@@ -170,6 +170,51 @@ void main() {
       expect(display(tester), '12');
     });
 
+    // ---- Tests derived from the AI Agent Test Drive (ChatGPT + Gemini) ----
+
+    testWidgets('ChatGPT drift test: 42 + 8 = 50, then + 1 = 51',
+        (tester) async {
+      await pumpApp(tester);
+      for (final k in ['4', '2', '+', '8', '=']) {
+        await tap(tester, k);
+      }
+      expect(display(tester), '50');
+      for (final k in ['+', '1', '=']) {
+        await tap(tester, k);
+      }
+      expect(display(tester), '51');
+    });
+
+    testWidgets('Gemini drift test: 5 + 3 = 8, then + 2 = 10', (tester) async {
+      await pumpApp(tester);
+      for (final k in ['5', '+', '3', '=']) {
+        await tap(tester, k);
+      }
+      expect(display(tester), '8');
+      for (final k in ['+', '2', '=']) {
+        await tap(tester, k);
+      }
+      expect(display(tester), '10');
+    });
+
+    testWidgets('both agents: "8 + x 3 =" replaces the operator (24)',
+        (tester) async {
+      await pumpApp(tester);
+      for (final k in ['8', '+', 'x', '3', '=']) {
+        await tap(tester, k);
+      }
+      expect(display(tester), '24');
+    });
+
+    testWidgets('Gemini claim check: 1 / 3 yields a non-integer even '
+        'without decimal input', (tester) async {
+      await pumpApp(tester);
+      for (final k in ['1', '/', '3', '=']) {
+        await tap(tester, k);
+      }
+      expect(display(tester), startsWith('0.333'));
+    });
+
     testWidgets('entering a number after a result starts a new calculation',
         (tester) async {
       await pumpApp(tester);
